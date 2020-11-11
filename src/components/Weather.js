@@ -22,7 +22,6 @@ const Weather = ({ currentWeather }) => {
       return new Date(data.date).getDay() === chosenDay;
     }
 
-    // TODO: sort out hard-coded values
     function getWeatherForHour(data) {
       return new Date(data.date).getHours() === hourOfDay;
     }
@@ -98,7 +97,6 @@ const Weather = ({ currentWeather }) => {
   return (
     <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        {/* {console.log(currentWeather)} */}
         {currentWeather.city}
         <AddFavorite location={currentWeather.city} />
       </h2>

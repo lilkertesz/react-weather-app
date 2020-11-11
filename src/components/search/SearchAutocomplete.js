@@ -49,7 +49,7 @@ const SearchAutocomplete = (props) => {
         state.suggestions.map((suggestion) => (
           <DropdownItem
             key={suggestion.city + suggestion.countryCode + suggestion.state}
-            onClick={(e) => {
+            onClick={() => {
               clickHandler(suggestion.city);
             }}
             onMouseEnter={mouseEnterHandler}

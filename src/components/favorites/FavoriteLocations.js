@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useContext } from "react";
+﻿import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import WeatherDetails from "../WeatherDetails";
 import axios from "axios";

@@ -26,7 +26,6 @@ const Search = () => {
     axios
       .get(url)
       .then((res) => {
-        // console.log(res.data);
         setState({
           id: res.data.id,
           city: res.data.city,

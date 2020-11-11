@@ -17,7 +17,6 @@ const AddFavorite = (props) => {
 
   const AddLocation = () => {
     axios.post(`https://localhost:44336/api/favorite/${props.location}`);
-    // .then(r => console.log("test", r))
   };
 
   const ButtonStyle = {
