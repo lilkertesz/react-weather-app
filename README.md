@@ -1,11 +1,18 @@
 ## Weather App
 
-React front end of a weather forecast application (back end can be found here: https://github.com/lilkertesz/asp-net-weather-forecast)
+React front end of a weather forecast application (back end: https://github.com/lilkertesz/asp-net-weather-forecast).
+
+### Daily and hourly forecast by city:
 
 ![Alt text](/screenshots/weather1.JPG?raw=true "Daily and hourly forecast by city")
-![Alt text](/screenshots/weather2.JPG?raw=true "Search bar with autocomplete city suggestions")
-![Alt text](/screenshots/weather3.JPG?raw=true "City watchlist")
 
+### Search bar with autocomplete city suggestions highlighting where the cursor is:
+
+![Alt text](/screenshots/weather2.JPG?raw=true "Search bar with autocomplete city suggestions")
+
+### City watchlist:
+
+![Alt text](/screenshots/weather3.JPG?raw=true "City watchlist")
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
