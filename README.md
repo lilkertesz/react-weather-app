@@ -6,7 +6,7 @@
 
 Look up weather forecasts or the current weather for any location, and save favorites to track the current weather of multiple locations.
 
-![Demo image](.src/assets/demo.jpg)
+![Demo image](./src/assets/demo.jpg)
 
 ---
 
