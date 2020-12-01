@@ -7,7 +7,7 @@ import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
   const [city, setCity] = useState("budapest");
-  const url = `https://localhost:44336/api/currentweather/${city}`;
+  const url = `${process.env.REACT_APP_CURRENTWEATHER_URL}/${city}`;
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
 
@@ -26,7 +26,6 @@ const Search = () => {
     axios
       .get(url)
       .then((res) => {
-        // console.log(res.data);
         setState({
           id: res.data.id,
           city: res.data.city,

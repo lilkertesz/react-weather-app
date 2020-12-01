@@ -16,7 +16,7 @@ const Weather = ({ currentWeather }) => {
   const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
-    const url = `https://localhost:44336/api/weatherforecast/${currentWeather.city}`;
+    const url = `${process.env.REACT_APP_WEATHERFORECAST_URL}/${currentWeather.city}`;
 
     function isChosenDay(data) {
       return new Date(data.date).getDay() === chosenDay;

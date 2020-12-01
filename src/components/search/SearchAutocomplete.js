@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const SearchAutocomplete = (props) => {
-  const autocompleteUrl = `https://localhost:44336/api/autocomplete/${props.searchedCity}`;
+  const autocompleteUrl = `${process.env.REACT_APP_AUTOCOMPLETE_URL}/${props.searchedCity}`;
   const [state, setState] = useState({
     suggestions: [],
   });
