@@ -1,23 +1,30 @@
 ﻿import React, { useState, useEffect, useContext } from "react";
-import FavoriteListContext from "../../context/FavoriteListContext";
+import { FavoriteListContext } from "../../context/FavoriteListContext";
 import axios from "axios";
 
 const AddFavorite = ({ currentWeather }) => {
   const [favoriteLocations, setFavoriteLocations] = useContext(
     FavoriteListContext
   );
-
   const [icon, setIcon] = useState();
 
   useEffect(() => {
+    console.log(favoriteLocations);
     favoriteLocations.includes(currentWeather.city)
       ? setIcon("check")
       : setIcon("plus");
-  }, [currentWeather.city, favoriteLocations]);
+  }, [currentWeather.city, favoriteLocations, setFavoriteLocations]);
+
+  useEffect(() => {
+    console.log("Bob");
+  }, []);
 
   const AddLocation = () => {
     axios.post(`${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`);
     setFavoriteLocations([...favoriteLocations, currentWeather.city]);
+    // axios
+    //   .get(process.env.REACT_APP_FAVORITES_URL)
+    //   .then((res) => setFavoriteLocations(res));
   };
 
   const ButtonStyle = {
