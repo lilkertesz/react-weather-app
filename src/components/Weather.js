@@ -98,9 +98,9 @@ const Weather = ({ currentWeather }) => {
   return (
     <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        {/* {console.log(currentWeather)} */}
+        {console.log(currentWeather)}
         {currentWeather.city}
-        <AddFavorite location={currentWeather.city} />
+        <AddFavorite currentWeather={currentWeather} />
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>

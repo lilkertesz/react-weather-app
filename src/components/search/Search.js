@@ -27,7 +27,7 @@ const Search = () => {
       .get(url)
       .then((res) => {
         setState({
-          id: res.data.id,
+          id: res.data.cityId,
           city: res.data.city,
           description: res.data.description,
           temp: res.data.temp,
