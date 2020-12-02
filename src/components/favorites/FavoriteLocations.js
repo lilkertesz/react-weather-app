@@ -7,9 +7,9 @@ const FavoriteLocations = () => {
   const [state, setState] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_FAVORITES_URL}`)
-      .then((res) => setState(res.data));
+    axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {
+      setState(res.data);
+    });
   }, []);
 
   return (

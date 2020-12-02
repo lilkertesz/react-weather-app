@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { ChosenDayProvider } from "../../context/ChosenDayContext";
+import { FavoriteListContext } from "../../context/FavoriteListContext";
 import Weather from "../Weather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
+  const [favorites, setFavorites] = useContext(FavoriteListContext);
   const [city, setCity] = useState("budapest");
   const url = `${process.env.REACT_APP_CURRENTWEATHER_URL}/${city}`;
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,6 +23,13 @@ const Search = () => {
     wind: null,
     icon: null,
   });
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {
+      setFavorites(res.data.map((item) => item.city));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     axios
