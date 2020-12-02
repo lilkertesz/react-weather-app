@@ -16,8 +16,15 @@ const AddFavorite = ({ currentWeather }) => {
   }, [currentWeather.city, favoriteLocations, setFavoriteLocations]);
 
   const AddLocation = () => {
-    axios.post(`${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`);
-    setFavoriteLocations([...favoriteLocations, currentWeather.city]);
+    if (favoriteLocations.includes(currentWeather.city)) {
+      // TODO: change placeholder alert to a proper response
+      alert("This location is already in your favorites.");
+    } else {
+      axios.post(
+        `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
+      );
+      setFavoriteLocations([...favoriteLocations, currentWeather.city]);
+    }
   };
 
   const ButtonStyle = {
