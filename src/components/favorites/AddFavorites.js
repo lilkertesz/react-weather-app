@@ -3,7 +3,7 @@ import FavoriteListContext from "../../context/FavoriteListContext";
 import axios from "axios";
 
 const AddFavorite = (props) => {
-  const [favoriteLocations, setFavoriteLocations] = useContext(
+  const [favoriteLocations] = useContext(
     FavoriteListContext
   );
 
@@ -16,8 +16,7 @@ const AddFavorite = (props) => {
   }, [props.location, favoriteLocations]);
 
   const AddLocation = () => {
-    axios.post(`https://localhost:44336/api/favorite/${props.location}`);
-    // .then(r => console.log("test", r))
+    axios.post(`${process.env.REACT_APP_FAVORITE_URL}/${props.location}`);
   };
 
   const ButtonStyle = {

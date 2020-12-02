@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useContext } from "react";
+﻿import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import WeatherDetails from "../WeatherDetails";
 import axios from "axios";
@@ -8,7 +8,7 @@ const FavoriteLocations = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:44336/api/favorite/favorites")
+      .get(`${process.env.REACT_APP_FAVORITES_URL}`)
       .then((res) => setState(res.data));
   }, []);
 
