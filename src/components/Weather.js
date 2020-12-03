@@ -5,6 +5,7 @@ import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import AddFavorite from "./favorites/AddFavorites";
 import { convertMpsToKph } from "../util/converters";
+import Observations from "./observation/Observations";
 
 const Weather = ({ currentWeather }) => {
   const hourOfDay = 15;
@@ -98,7 +99,6 @@ const Weather = ({ currentWeather }) => {
   return (
     <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        {console.log(currentWeather)}
         {currentWeather.city}
         <AddFavorite currentWeather={currentWeather} />
       </h2>
@@ -165,6 +165,7 @@ const Weather = ({ currentWeather }) => {
           )}
         </div>
       </div>
+      <Observations city={currentWeather.city}></Observations>
     </div>
   );
 };
