@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import AddObservation from "./AddObservation";
 
 const Observations = (props) => {
     const observationUrl = `${process.env.REACT_APP_OBSERVATION_URL}/${props.city}`;
@@ -31,6 +32,7 @@ const Observations = (props) => {
         </ObservationItem>
       </ObservationsContainer>
       )}
+      <AddObservation></AddObservation>
     </React.Fragment>
     )
 }
