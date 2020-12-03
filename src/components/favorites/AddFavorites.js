@@ -9,16 +9,18 @@ const AddFavorite = ({ currentWeather }) => {
   const [icon, setIcon] = useState();
 
   useEffect(() => {
-    console.log(favoriteLocations);
     favoriteLocations.includes(currentWeather.city)
       ? setIcon("check")
       : setIcon("plus");
   }, [currentWeather.city, favoriteLocations, setFavoriteLocations]);
 
-  const AddLocation = () => {
+
+  const ToggleLocation = () => {
     if (favoriteLocations.includes(currentWeather.city)) {
-      // TODO: change placeholder alert to a proper response
-      alert("This location is already in your favorites.");
+      axios.delete(
+        `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
+      );
+      setFavoriteLocations(favoriteLocations.filter(cities => cities !== currentWeather.city));
     } else {
       axios.post(
         `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
@@ -37,7 +39,7 @@ const AddFavorite = ({ currentWeather }) => {
   };
 
   return (
-    <i onClick={AddLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
+    <i onClick={ToggleLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
   );
 };
 
