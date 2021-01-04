@@ -5,6 +5,7 @@ import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import AddFavorite from "./favorites/AddFavorites";
 import { convertMpsToKph } from "../util/converters";
+import Observations from "./observation/Observations";
 
 const Weather = ({ currentWeather }) => {
   const hourOfDay = 15;
@@ -16,7 +17,7 @@ const Weather = ({ currentWeather }) => {
   const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
-    const url = `https://localhost:44336/api/weatherforecast/${currentWeather.city}`;
+    const url = `${process.env.REACT_APP_WEATHERFORECAST_URL}/${currentWeather.city}`;
 
     function isChosenDay(data) {
       return new Date(data.date).getDay() === chosenDay;
@@ -98,7 +99,7 @@ const Weather = ({ currentWeather }) => {
     <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {currentWeather.city}
-        <AddFavorite location={currentWeather.city} />
+        <AddFavorite currentWeather={currentWeather} />
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
@@ -163,6 +164,7 @@ const Weather = ({ currentWeather }) => {
           )}
         </div>
       </div>
+      <Observations city={currentWeather.city}></Observations>
     </div>
   );
 };

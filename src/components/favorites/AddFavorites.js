@@ -1,22 +1,32 @@
 ﻿import React, { useState, useEffect, useContext } from "react";
-import FavoriteListContext from "../../context/FavoriteListContext";
 import axios from "axios";
+import { FavoriteListContext } from "../../context/FavoriteListContext";
 
-const AddFavorite = (props) => {
+const AddFavorite = ({ currentWeather }) => {
   const [favoriteLocations, setFavoriteLocations] = useContext(
     FavoriteListContext
   );
-
   const [icon, setIcon] = useState();
 
   useEffect(() => {
-    favoriteLocations.includes(props.location)
+    favoriteLocations.includes(currentWeather.city)
       ? setIcon("check")
       : setIcon("plus");
-  }, [props.location, favoriteLocations]);
+  }, [currentWeather.city, favoriteLocations, setFavoriteLocations]);
 
-  const AddLocation = () => {
-    axios.post(`https://localhost:44336/api/favorite/${props.location}`);
+
+  const ToggleLocation = () => {
+    if (favoriteLocations.includes(currentWeather.city)) {
+      axios.delete(
+        `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
+      );
+      setFavoriteLocations(favoriteLocations.filter(cities => cities !== currentWeather.city));
+    } else {
+      axios.post(
+        `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
+      );
+      setFavoriteLocations([...favoriteLocations, currentWeather.city]);
+    }
   };
 
   const ButtonStyle = {
@@ -29,7 +39,7 @@ const AddFavorite = (props) => {
   };
 
   return (
-    <i onClick={AddLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
+    <i onClick={ToggleLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
   );
 };
 

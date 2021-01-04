@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
-import FavoriteListContext from "./context/FavoriteListContext";
+import { FavoriteListProvider } from "./context/FavoriteListContext";
 import FavoriteLocations from "./components/favorites/FavoriteLocations";
 import Search from "./components/search/Search";
 
 function App() {
-  const favoriteLocations = useState([]);
   return (
     <div className="App">
-      <FavoriteListContext.Provider value={favoriteLocations}>
+      <FavoriteListProvider>
         <Router>
           <Navbar />
           <Switch>
@@ -18,7 +17,7 @@ function App() {
             <Route path="/favorites" component={FavoriteLocations} />
           </Switch>
         </Router>
-      </FavoriteListContext.Provider>
+      </FavoriteListProvider>
     </div>
   );
 }

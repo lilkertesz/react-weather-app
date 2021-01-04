@@ -1,5 +1,13 @@
-﻿import { createContext } from "react";
+﻿import React, { createContext, useState } from "react";
 
-const FavoriteListContext = createContext([]);
+export const FavoriteListContext = createContext();
 
-export default FavoriteListContext;
+export const FavoriteListProvider = (props) => {
+  const [favorites, setFavorites] = useState([]);
+
+  return (
+    <FavoriteListContext.Provider value={[favorites, setFavorites]}>
+      {props.children}
+    </FavoriteListContext.Provider>
+  );
+};
