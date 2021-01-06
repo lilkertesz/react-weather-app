@@ -64,11 +64,12 @@ function CurrentWeather() {
         </p>
         <p style={infoStyle}> Wind:{" "}
           <span style={infoSpanStyle}>
-          {convertDegreeToDirection(weather.windDirection)} {convertMpsToKph(weather.windSpeed)} km/h
+          {convertDegreeToDirection(weather.windDirection)}{" "}
+          {convertMpsToKph(weather.windSpeed)} km/h
           </span>
         </p>
         <p style={infoStyle}> Pressure:{" "}
-          <span style={infoSpanStyle}>{weather.pressure} kPa</span>
+          <span style={infoSpanStyle}>{weather.pressure} hPa</span>
         </p>
       </div>
     </div>
@@ -76,7 +77,5 @@ function CurrentWeather() {
   </React.Fragment>
   ) 
 }
-
-
 
 export default CurrentWeather;

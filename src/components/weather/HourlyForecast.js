@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import styled from "styled-components";
 import { 
     convertMpsToKph, 
     convertDegreeToDirection, 
@@ -16,11 +17,6 @@ const HourlyForecast = ({location}) => {
   const pressureImage =
     "https://cdn2.iconfinder.com/data/icons/network-sensors/201/pressure-512.png";
 
-  const smallIconStyle = {
-    width: "25px",
-    height: "25px",
-  };
-
   const loadHandler = (e) => {
     e.currentTarget.classList.add("hourly-forecast");
   };
@@ -36,68 +32,70 @@ const HourlyForecast = ({location}) => {
       };
   },[location]);
 
-  // return (
-  //   <div className={classes.root}>
-  //     <GridList className={classes.gridList} cols={4.5}>
-  //     {hourlyForecast !== undefined &&  hourlyForecast.map((forecast) => (
-  //         <GridListTile key={forecast.timestamp} className={classes.gridElement}>
-  //             <div>{convertTimestampToTime(forecast.timestamp)}</div>
-  //             <div>
-  //         <img src={`http://openweathermap.org/img/wn/${forecast.weatherIcon}@2x.png`} alt={forecast.shortDescription} />
-  //             </div>
-  //         <div>{forecast.shortDescription}</div>
-  //         <div>{forecast.temperature} C° (feels: {forecast.feelsLike} C°)</div>
-  //         <div>Wind: {convertDegreeToDirection(forecast.windDirection)} {convertMpsToKph(forecast.windSpeed)}km/h</div>
-  //         </GridListTile>
-  //     ))}
-  //     </GridList>
-  //   </div>
-  // );
   return (
     <React.Fragment>
-          {hourlyForecast.map((item) => (
-
-    <div
-      key={item.timestamp}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-      }}
-      onLoad={loadHandler}
-    >
-      <h4 style={{ padding: "20px 0" }}>
-        {new Date(item.date).getHours() + ":00"}
-      </h4>
-      <div
-        style={{ padding: "0 0 20px 0", borderBottom: "1px solid lightgray" }}
-      >
-        <img
+    {hourlyForecast.map((item) => (
+    <Container key={item.timestamp} onLoad={loadHandler}>
+      <Time> {convertTimestampToTime(item.timestamp)} </Time>
+      <Main>
+        <MediumImg
           src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
           alt="weather"
-          style={{ width: "50px", height: "50px" }}
         />
-        <p>{Math.round(item.temperature) + "°"}</p>
-      </div>
-      <div>
-        <img src={humidityImage} alt="humidity" style={smallIconStyle} />
-        <p style={{ color: "lightblue" }}>{item.humidity + "%"}</p>
-      </div>
-      <div>
-        <img src={windSpeedImage} alt="windspeed" style={smallIconStyle} />
-        <p style={{ color: "gray", fontSize: "0.8rem" }}>
-          {convertMpsToKph(item.wind) + " km/h"}
+        <p>{item.temperature + "°"}</p>
+      </Main>
+      <Humidity>
+        <SmallImg src={humidityImage} alt="humidity" />
+        <p>{item.humidity + "%"}</p>
+      </Humidity>
+      <Air>
+        <SmallImg src={windSpeedImage} alt="windspeed" />
+        <p>
+          {convertDegreeToDirection(item.windDirection)} <br />
+          {convertMpsToKph(item.windSpeed) + " km/h"}
         </p>
-      </div>
-      <div>
-        <img src={pressureImage} alt="pressure" style={smallIconStyle} />
-        <p style={{ color: "gray", fontSize: "0.8rem" }}>
-          {item.pressure + " hPa"}
-        </p>
-      </div>
-    </div>
+      </Air>
+      <Air>
+        <SmallImg src={pressureImage} alt="pressure" />
+        <p>{item.pressure + " hPa"}</p>
+      </Air>
+    </Container>
   ))}
   </React.Fragment>
   )};
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+const Time = styled.h4`
+  padding: 20px 0;
+`;
+
+const Main = styled.div`
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid lightgray;
+`;
+
+const Humidity = styled.div`
+  color: lightblue;
+`;
+
+const Air = styled.div`
+  color: grey;
+  font-size: 0.8rem;
+`;
+
+const SmallImg = styled.img`
+  height: 25px;
+  width: 25px;
+`;
+
+const MediumImg = styled.img`
+  height: 50px;
+  width: 50px;
+`;
 
 export default HourlyForecast;
