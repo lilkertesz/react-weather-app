@@ -18,7 +18,6 @@ const Observations = (props) => {
   return (
     <React.Fragment>
       <AddObservation city={props.city} />
-      {console.log(state.observations)}
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {" "}
         User Observations

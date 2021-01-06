@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import { FavoriteListProvider } from "./context/FavoriteListContext";
 import FavoriteLocations from "./components/favorites/FavoriteLocations";
-import Search from "./components/search/Search";
+import Weather from "./components/weather/CurrentWeather";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Search} />
+            <Route exact path="/" component={Weather} />
             <Route path="/favorites" component={FavoriteLocations} />
           </Switch>
         </Router>

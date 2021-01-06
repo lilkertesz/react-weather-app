@@ -1,12 +1,32 @@
-﻿import React, { useContext } from "react";
-import { ChosenDayContext } from "../context/ChosenDayContext";
-import { parseDay, parseDayOfWeek } from "../util/daysOfWeek";
+import React, { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import { ChosenDayContext } from "../../context/ChosenDayContext";
+import { 
+  convertMpsToKph, 
+  convertDegreeToDirection, 
+  getDayFromTimestamp,
+  convertTimestampToTime 
+} from "../../util";
 
-const DailyForecast = (props) => {
-  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+
+const DailyForecast = ({ location }) => {
+
+  const [dailyForecast, setDailyForecast] = useState([]);
+  // const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_DAILYFORECAST_URL}/20/20`)
+    .then(res => setDailyForecast(res.data))
+    .catch((err) => {
+      console.log(err);
+    });  
+    return () => {
+      console.log("cleaned up");
+    };
+  }, [location])
 
   const clickHandler = (e) => {
-    setChosenDay(parseInt(e.currentTarget.dataset.dayofweek));
+    // setChosenDay(parseInt(e.currentTarget.dataset.dayofweek));
 
     const elem = e.currentTarget;
     const currentChosenDayElement = document.querySelector(".chosen-day");
@@ -42,10 +62,10 @@ const DailyForecast = (props) => {
   const loadHandler = (e) => {
     const elem = e.currentTarget;
 
-    if (parseInt(elem.dataset.dayofweek) === chosenDay) {
-      elem.classList.add("chosen-day");
-      elem.style.borderTop = "5px solid orange";
-    }
+    // if (parseInt(elem.dataset.dayofweek) === chosenDay) {
+    //   elem.classList.add("chosen-day");
+    //   elem.style.borderTop = "5px solid orange";
+    // }
   };
 
   const initialStyle = {
@@ -54,26 +74,29 @@ const DailyForecast = (props) => {
     cursor: "pointer",
   };
 
-  return props.forecasts.map((item) => (
+  return (
+    
+    dailyForecast.map((item) => (
     <div
-      key={item.exactDate}
+      key={item.timestamp}
       onClick={clickHandler}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       onLoad={loadHandler}
       style={initialStyle}
-      data-dayofweek={parseDayOfWeek(item.date)}
+      data-dayofweek={getDayFromTimestamp(item.timestamp)}
     >
-      <h4>{parseDay(item.date)}</h4>
+      <h4>{getDayFromTimestamp(item.timestamp)}</h4>
       <img
-        src={`http://openweathermap.org/img/wn/${item.icon}@2x.png`}
+        src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
         alt=""
         style={{ width: "auto" }}
       />
-      <p>{Math.round(item.temp) + "°"}</p>
+      <p>{Math.round(item.temperature) + "°"}</p>
       <p>{item.description}</p>
     </div>
-  ));
+  ))
+  );
 };
 
 export default DailyForecast;

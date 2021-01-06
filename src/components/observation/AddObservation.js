@@ -7,9 +7,9 @@ const AddObservation = (props) => {
   const [userName, setUserName] = useState("");
   const [description, setDescription] = useState("");
 
-  useEffect(() => {
-    console.log(userName);
-  }, [userName]);
+  // useEffect(() => {
+  //   console.log(userName);
+  // }, [userName]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -19,11 +19,11 @@ const AddObservation = (props) => {
       description: description,
     });
 
-    axios
-      .post(url, bodyFormData, {
-        "Content-Type": "application/x-www-form-urlencoded",
-      })
-      .then((res) => console.log(res));
+    // axios
+    //   .post(url, bodyFormData, {
+    //     "Content-Type": "application/x-www-form-urlencoded",
+    //   })
+    //   .then((res) => console.log(res));
   };
 
   const nameInputChangeHandler = (event) => {

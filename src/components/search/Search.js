@@ -3,26 +3,13 @@ import axios from "axios";
 import styled from "styled-components";
 import { ChosenDayProvider } from "../../context/ChosenDayContext";
 import { FavoriteListContext } from "../../context/FavoriteListContext";
-import Weather from "../Weather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
   const [favorites, setFavorites] = useContext(FavoriteListContext);
   const [city, setCity] = useState("budapest");
-  const url = `${process.env.REACT_APP_CURRENTWEATHER_URL}/${city}`;
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
-
-  const [state, setState] = useState({
-    id: null,
-    city: null,
-    description: null,
-    temp: null,
-    pressure: null,
-    humidity: null,
-    wind: null,
-    icon: null,
-  });
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {
@@ -30,26 +17,6 @@ const Search = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => {
-        setState({
-          id: res.data.cityId,
-          city: res.data.city,
-          description: res.data.description,
-          temp: res.data.temp,
-          pressure: res.data.pressure,
-          humidity: res.data.humidity,
-          wind: res.data.wind,
-          icon: res.data.icon,
-        });
-      }, setError(null))
-      .catch((err) => {
-        setError(err);
-      });
-  }, [url]);
 
   const submitHandler = () => {
     setCity(searchTerm.toLowerCase());
@@ -89,7 +56,6 @@ const Search = () => {
         {error !== null && (
           <Error>Location not found. Please try a different search term.</Error>
         )}
-        <Weather currentWeather={state} />
       </React.Fragment>
     </ChosenDayProvider>
   );
