@@ -44,57 +44,37 @@ function CurrentWeather() {
     <React.Fragment>
     {weather !== undefined &&
       <div className="current-weather" style={currentWeatherGridStyle}>
-      <h2 style={{ gridArea: "currentbox1" }}>{convertTimestampToTime(weather.timestamp)}</h2>
-      <div
-      style={{
-        gridArea: "currentbox2",
-              lineHeight: "0",
-              alignSelf: "start",
-            }}
-            >
-            <img
-              src={`http://openweathermap.org/img/wn/${weather.weatherIcon}@2x.png`}
-              alt="weather"
-              style={{ width: "auto" }}
-              />
-            <h3 style={{ textAlign: "center" }}>
-              {Math.round(weather.temperature)}°
-            </h3>
-          </div>
-          <div
-            style={{
-              gridArea: "currentbox3",
-              justifySelf: "start",
-              lineHeight: "2rem",
-            }}
-            >
-            <p
-              style={{
-                fontWeight: "700",
-                fontSize: "1rem",
-              }}
-              >
-              {weather.description}
-            </p>
-            <p style={infoStyle}>
-              Humidity{" "}
-              <span style={infoSpanStyle}>{weather.humidity}%</span>
-            </p>
-            <p style={infoStyle}>
-              Wind:{" "}
-              <span style={infoSpanStyle}>
-              {convertDegreeToDirection(weather.windDirection)} {convertMpsToKph(weather.windSpeed)} km/h
-              </span>
-            </p>
-            <p style={infoStyle}>
-              Pressure{" "}
-              <span style={infoSpanStyle}>{weather.pressure} kPa</span>
-            </p>
-          </div>
-        </div>
-      }
-      </React.Fragment>
-     ) 
+      <h2 style={{ gridArea: "currentbox1" }}>
+        {convertTimestampToTime(weather.timestamp)}
+      </h2>
+      <div style={{ gridArea: "currentbox2", lineHeight: "0", alignSelf: "start" }}>
+        <img
+          src={`http://openweathermap.org/img/wn/${weather.weatherIcon}@2x.png`}
+          alt="weather"
+          style={{ width: "auto" }}
+          />
+        <h3 style={{ textAlign: "center" }}> {weather.temperature}°</h3>
+      </div>
+      <div style={{ gridArea: "currentbox3", justifySelf: "start", lineHeight: "2rem" }}>
+        <p style={{ fontWeight: "700", fontSize: "1rem" }}>
+          {weather.description}
+        </p>
+        <p style={infoStyle}> Humidity:{" "}
+          <span style={infoSpanStyle}>{weather.humidity}%</span>
+        </p>
+        <p style={infoStyle}> Wind:{" "}
+          <span style={infoSpanStyle}>
+          {convertDegreeToDirection(weather.windDirection)} {convertMpsToKph(weather.windSpeed)} km/h
+          </span>
+        </p>
+        <p style={infoStyle}> Pressure:{" "}
+          <span style={infoSpanStyle}>{weather.pressure} kPa</span>
+        </p>
+      </div>
+    </div>
+  }
+  </React.Fragment>
+  ) 
 }
 
 

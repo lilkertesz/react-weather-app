@@ -48,24 +48,22 @@ const Weather = ({location}) => {
   return (
     <div className="weather-box">
       <Search />
-      <React.Fragment>
-    <h2 style={{ marginLeft: "60px", display: "flex" }}>
-      "budapest"
-    </h2>
-    <div className="grid-container" style={gridStyle}>
-      <div className="box1" style={box1Style}>
-        <CurrentWeather />
+      <h2 style={{ marginLeft: "60px", display: "flex" }}>
+        "budapest"
+      </h2>
+      <div className="grid-container" style={gridStyle}>
+        <div className="box1" style={box1Style}>
+          <CurrentWeather />
+        </div>
+        <div className="box2" style={box2Style}>
+          <DailyForecast />
+        </div>
+        <div className="box3" style={box3Style}>
+          <HourlyForecast />
+        </div>
       </div>
-      <div className="box2" style={box2Style}>
-        <DailyForecast />
-      </div>
-      <div className="box3" style={box3Style}>
-        <HourlyForecast />
-      </div>
-    </div>
-    </React.Fragment>
   </div>
   )
 }
 
-export default Weather
+export default Weather;
