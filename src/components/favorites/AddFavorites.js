@@ -2,30 +2,30 @@
 import axios from "axios";
 import { FavoriteListContext } from "../../context/FavoriteListContext";
 
-const AddFavorite = ({ currentWeather }) => {
+const AddFavorite = ({ city }) => {
   const [favoriteLocations, setFavoriteLocations] = useContext(
     FavoriteListContext
   );
   const [icon, setIcon] = useState();
 
   useEffect(() => {
-    favoriteLocations.includes(currentWeather.city)
+    favoriteLocations.includes(city)
       ? setIcon("check")
       : setIcon("plus");
-  }, [currentWeather.city, favoriteLocations, setFavoriteLocations]);
+  }, [city, favoriteLocations, setFavoriteLocations]);
 
 
   const ToggleLocation = () => {
-    if (favoriteLocations.includes(currentWeather.city)) {
+    if (favoriteLocations.includes(city)) {
       axios.delete(
-        `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
+        `${process.env.REACT_APP_FAVORITE_URL}/${city}`
       );
-      setFavoriteLocations(favoriteLocations.filter(cities => cities !== currentWeather.city));
+      setFavoriteLocations(favoriteLocations.filter(cities => cities !== city));
     } else {
       axios.post(
-        `${process.env.REACT_APP_FAVORITE_URL}/${currentWeather.city}`
+        `${process.env.REACT_APP_FAVORITE_URL}/${city}`
       );
-      setFavoriteLocations([...favoriteLocations, currentWeather.city]);
+      setFavoriteLocations([...favoriteLocations, city]);
     }
   };
 

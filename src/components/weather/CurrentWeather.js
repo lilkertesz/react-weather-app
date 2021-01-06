@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { ChosenDayContext } from "../../context/ChosenDayContext";
 import { LocationContext } from "../../context/LocationContext";
 import { 
   convertMpsToKph, 
@@ -10,8 +9,6 @@ import {
 
 function CurrentWeather() {
   const [weather, setWeather] = useState();
-  // const chosenDay = useContext(ChosenDayContext)[0];
-
   const [location] = useContext(LocationContext);
   const url = `${process.env.REACT_APP_CURRENTWEATHER_URL}/${location.latitude}/${location.longitude}`;
 

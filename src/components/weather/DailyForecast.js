@@ -1,20 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { ChosenDayContext } from "../../context/ChosenDayContext";
-import { ChosenDayProvider } from "../../context/ChosenDayContext";
 import { LocationContext } from "../../context/LocationContext";
 import { 
-  convertMpsToKph, 
-  convertDegreeToDirection, 
   getDayFromTimestamp,
-  convertTimestampToTime 
 } from "../../util";
-
 
 const DailyForecast = () => {
 
   const [dailyForecast, setDailyForecast] = useState([]);
-  // const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
   const [location] = useContext(LocationContext);
   const url = `${process.env.REACT_APP_DAILYFORECAST_URL}/${location.latitude}/${location.longitude}`;
 
@@ -27,10 +22,10 @@ const DailyForecast = () => {
   }, [location, url])
 
   const clickHandler = (e) => {
-    // setChosenDay(parseInt(e.currentTarget.dataset.dayofweek));
-
     const elem = e.currentTarget;
     const currentChosenDayElement = document.querySelector(".chosen-day");
+    setChosenDay(elem.dataset.weather);
+    console.log(chosenDay);
 
     if (currentChosenDayElement) {
       currentChosenDayElement.style.borderTop = "5px solid transparent";
@@ -63,10 +58,10 @@ const DailyForecast = () => {
   const loadHandler = (e) => {
     const elem = e.currentTarget;
 
-    // if (parseInt(elem.dataset.dayofweek) === chosenDay) {
-    //   elem.classList.add("chosen-day");
-    //   elem.style.borderTop = "5px solid orange";
-    // }
+    if (parseInt(elem.dataset.dayofweek) === chosenDay) {
+      elem.classList.add("chosen-day");
+      elem.style.borderTop = "5px solid orange";
+    }
   };
 
   const initialStyle = {
@@ -85,12 +80,12 @@ const DailyForecast = () => {
       onMouseLeave={mouseLeaveHandler}
       onLoad={loadHandler}
       style={initialStyle}
-      data-dayofweek={getDayFromTimestamp(item.timestamp)}
+      data-weather={item.temperature}
     >
       <h4>{getDayFromTimestamp(item.timestamp)}</h4>
       <img
         src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
-        alt=""
+        alt="weather"
         style={{ width: "auto" }}
       />
       <p>{item.temperature + "°"}</p>

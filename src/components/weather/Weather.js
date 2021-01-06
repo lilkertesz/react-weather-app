@@ -4,9 +4,9 @@ import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import CurrentWeather from "./CurrentWeather";
 import {LocationContext} from "../../context/LocationContext";
+import AddFavorite from "../favorites/AddFavorites";
 
 const Weather = () => {
-
   const [location] = useContext(LocationContext)
 
   const gridStyle = {
@@ -53,6 +53,7 @@ const Weather = () => {
       <Search />
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {location.city}
+        <AddFavorite city={location.city} />
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>

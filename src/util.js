@@ -16,14 +16,24 @@ export const convertTimestampToTime = (timestamp) => {
     return formattedTime;
 };
 
-// export const getDayFromTimestamp = (timestamp) => {
-//     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-//     let date = new Date(timestamp * 1000);
-//     return date.getDay();
-// };
+export const getDayNumberFromTimestamp = (timestamp) => {
+    let date = new Date(timestamp * 1000);
+    return date.getDay();
+};
 
 export const getDayFromTimestamp = (timestamp) => {
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     let date = new Date(timestamp * 1000);
     return days[date.getDay()];
 };
+
+export const compare = (a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  };
+  

@@ -3,10 +3,10 @@ import React, { useState, createContext } from "react";
 export const ChosenDayContext = createContext();
 
 export const ChosenDayProvider = (props) => {
-  const chosenDay = useState(new Date(Date.now()).getDay());
+  const [chosenDay, setChosenDay] = useState({});
 
   return (
-    <ChosenDayContext.Provider value={chosenDay}>
+    <ChosenDayContext.Provider value={[chosenDay, setChosenDay]}>
       {props.children}
     </ChosenDayContext.Provider>
   );
