@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Search from "../search/Search";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import CurrentWeather from "./CurrentWeather";
+import {LocationContext} from "../../context/LocationContext";
 
-const Weather = ({location}) => {
+const Weather = () => {
+
+  const initialLocation = useContext(LocationContext)
 
   const gridStyle = {
     display: "grid",
@@ -49,20 +52,20 @@ const Weather = ({location}) => {
     <div className="weather-box">
       <Search />
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        "budapest"
+        {initialLocation.city}
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
-          <CurrentWeather />
+          <CurrentWeather location = {initialLocation} />
         </div>
         <div className="box2" style={box2Style}>
-          <DailyForecast />
+          <DailyForecast location = {initialLocation} />
         </div>
         <div className="box3" style={box3Style}>
-          <HourlyForecast />
+          <HourlyForecast location = {initialLocation} />
         </div>
       </div>
-  </div>
+    </div>
   )
 }
 

@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { ChosenDayContext } from "../../context/ChosenDayContext";
 import { 
   convertMpsToKph, 
   convertDegreeToDirection, 
   convertTimestampToTime, 
 } from "../../util";
 
-function CurrentWeather() {
+function CurrentWeather({location}) {
   const [weather, setWeather] = useState();
+  // const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_CURRENTWEATHER_URL}/20/20`)
+    axios.get(`${process.env.REACT_APP_CURRENTWEATHER_URL}/${location.latitude}/${location.longitude}`)
     .then(res => setWeather(res.data))
     .catch((err) => {
       console.log(err);
     });  
-    return () => {
-      console.log("cleaned up");
-    };
-  }, [])
+  }, [location])
 
   const currentWeatherGridStyle = {
     display: "grid",

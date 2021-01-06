@@ -16,7 +16,7 @@ const DailyForecast = ({ location }) => {
   // const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_DAILYFORECAST_URL}/20/20`)
+    axios.get(`${process.env.REACT_APP_DAILYFORECAST_URL}/${location.latitude}/${location.longitude}`)
     .then(res => setDailyForecast(res.data))
     .catch((err) => {
       console.log(err);
@@ -94,7 +94,7 @@ const DailyForecast = ({ location }) => {
         alt=""
         style={{ width: "auto" }}
       />
-      <p>{Math.round(item.temperature) + "°"}</p>
+      <p>{item.temperature + "°"}</p>
       <p>{item.description}</p>
     </div>
   ))}

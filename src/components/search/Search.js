@@ -3,31 +3,12 @@ import axios from "axios";
 import styled from "styled-components";
 import { FavoriteListContext } from "../../context/FavoriteListContext";
 import SearchAutocomplete from "./SearchAutocomplete";
+import { LocationContext } from "../../context/LocationContext";
 
 const Search = () => {
   const [favorites, setFavorites] = useContext(FavoriteListContext);
   const [city, setCity] = useState("budapest");
-  const [location, setLocation] = useState({
-      city: "Budapest",
-      country: "HU",
-      latitude: 47.4984,
-      longitude: 19.0404
-  });
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_IPLOCATION_URL}`)
-    .then((res) => {
-      setLocation({
-        city: res.data.city,
-        country: res.data.country,
-        latitude: res.data.latitude,
-        longitude: res.data.longitude
-      });
-    })
-    .then(console.log(location));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {

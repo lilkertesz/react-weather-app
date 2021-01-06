@@ -22,7 +22,7 @@ const HourlyForecast = ({location}) => {
   };
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_HOURLYFORECAST_URL}/20/20`)
+    axios.get(`${process.env.REACT_APP_HOURLYFORECAST_URL}/${location.latitude}/${location.longitude}`)
   .then(res => setHourlyForecast(res.data))
   .catch((err) => {
       console.log(err);
