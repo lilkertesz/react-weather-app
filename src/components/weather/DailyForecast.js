@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { ChosenDayContext } from "../../context/ChosenDayContext";
+import { ChosenDayProvider } from "../../context/ChosenDayContext";
 import { 
   convertMpsToKph, 
   convertDegreeToDirection, 
@@ -75,8 +76,9 @@ const DailyForecast = ({ location }) => {
   };
 
   return (
-    
-    dailyForecast.map((item) => (
+    <ChosenDayProvider>
+
+    {dailyForecast.map((item) => (
     <div
       key={item.timestamp}
       onClick={clickHandler}
@@ -95,7 +97,8 @@ const DailyForecast = ({ location }) => {
       <p>{Math.round(item.temperature) + "°"}</p>
       <p>{item.description}</p>
     </div>
-  ))
+  ))}
+  </ChosenDayProvider>
   );
 };
 

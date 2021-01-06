@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import { FavoriteListProvider } from "./context/FavoriteListContext";
 import FavoriteLocations from "./components/favorites/FavoriteLocations";
-import Weather from "./components/weather/CurrentWeather";
+import Weather from "./components/weather/Weather";
 
 function App() {
   return (

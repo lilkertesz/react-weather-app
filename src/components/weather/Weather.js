@@ -1,46 +1,71 @@
-// import React, { useState, useEffect } from "react";
-// import styled from 'styled-components';
-// import axios from "axios";
-// import CurrentWeather from "./CurrentWeather";
-// import HourlyForecast from "./HourlyForecast";
-// import DailyForecast from "./DailyForecast";
+import React from "react";
+import Search from "../search/Search";
+import DailyForecast from "./DailyForecast";
+import HourlyForecast from "./HourlyForecast";
+import CurrentWeather from "./CurrentWeather";
 
-// function Weather() {
-//   const [location, setLocation] = useState({});
+const Weather = ({location}) => {
 
-//   useEffect(() => {
-//     axios.get("https://localhost:44386/api/location")
-//     .then(async res => {
-//         setLocation(res.data)
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     });         
-//   }, [location])
+  const gridStyle = {
+    display: "grid",
+    gridTemplateColumns: "340px 1fr",
+    gridTemplateRows: "1fr 2fr",
+    gridTemplateAreas: `
+    'box1 box2'
+    'box3 box3'`,
+    height: "auto",
+    padding: "60px",
+    paddingTop: "20px",
+  };
 
-//   return (
-//     <React.Fragment>
-//     {location !== undefined && 
-//       <div>
-//         <Fishing> The weather for {location.city}, {location.country} is: </Fishing>
-//         <Container>
-//         <CurrentWeather location={location} />
-//         <HourlyForecast location={location} />
-//         </Container>
-//         <DailyForecast location={location} />
-//       </div>
-//     }
-//     </React.Fragment>
-//   )
-// }
+  const box1Style = {
+    gridArea: "box1",
+    lineHeight: "1.5rem",
+    fontSize: "1.15rem",
+    padding: "15px 15px 25px 15px",
+    border: "2px solid lightgray",
+    borderRight: "0",
+  };
 
-// const Fishing = styled.div`
-//   margin: 20px;
-//   color: white;
-// `
-// const Container = styled.div`
-//   overflow: hidden;
-//   width: 85%;
-//   margin: auto;
-//   `
-// export default Weather
+  const box2Style = {
+    gridArea: "box2",
+    display: "flex",
+    padding: "20px",
+    textAlign: "center",
+    justifyContent: "space-around",
+    border: "2px solid lightgray",
+    borderLeft: "0",
+  };
+
+  const box3Style = {
+    gridArea: "box3",
+    display: "flex",
+    padding: "20px",
+    textAlign: "center",
+    justifyContent: "space-evenly",
+  };
+
+  return (
+    <div className="weather-box">
+      <Search />
+      <React.Fragment>
+    <h2 style={{ marginLeft: "60px", display: "flex" }}>
+      "budapest"
+    </h2>
+    <div className="grid-container" style={gridStyle}>
+      <div className="box1" style={box1Style}>
+        <CurrentWeather />
+      </div>
+      <div className="box2" style={box2Style}>
+        <DailyForecast />
+      </div>
+      <div className="box3" style={box3Style}>
+        <HourlyForecast />
+      </div>
+    </div>
+    </React.Fragment>
+  </div>
+  )
+}
+
+export default Weather

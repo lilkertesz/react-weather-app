@@ -1,15 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { ChosenDayProvider } from "../../context/ChosenDayContext";
 import { FavoriteListContext } from "../../context/FavoriteListContext";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
   const [favorites, setFavorites] = useContext(FavoriteListContext);
   const [city, setCity] = useState("budapest");
+  const [location, setLocation] = useState({
+      city: "Budapest",
+      country: "HU",
+      latitude: 47.4984,
+      longitude: 19.0404
+  });
   const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_IPLOCATION_URL}`)
+    .then((res) => {
+      setLocation({
+        city: res.data.city,
+        country: res.data.country,
+        latitude: res.data.latitude,
+        longitude: res.data.longitude
+      });
+    })
+    .then(console.log(location));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {
@@ -34,30 +52,23 @@ const Search = () => {
   };
 
   return (
-    <ChosenDayProvider>
-      <React.Fragment>
-        <SearchBar className="search">
-          <Input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={inputFieldChangeHandler}
-            onKeyDown={keyDownHandler}
-          />
-          <SearchButton onClick={submitHandler}>
-            <i className="fa fa-search" />
-          </SearchButton>
-          <SearchAutocomplete
-            searchedCity={searchTerm}
-            setSearchedCity={setCity}
-            setInputText={setSearchTerm}
-          />
-        </SearchBar>
-        {error !== null && (
-          <Error>Location not found. Please try a different search term.</Error>
-        )}
-      </React.Fragment>
-    </ChosenDayProvider>
+    <SearchBar className="search">
+      <Input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={inputFieldChangeHandler}
+        onKeyDown={keyDownHandler}
+      />
+      <SearchButton onClick={submitHandler}>
+        <i className="fa fa-search" />
+      </SearchButton>
+      <SearchAutocomplete
+        searchedCity={searchTerm}
+        setSearchedCity={setCity}
+        setInputText={setSearchTerm}
+      />
+    </SearchBar>
   );
 };
 
@@ -87,13 +98,6 @@ const SearchButton = styled.button`
   border: 1px solid #b5c4d6;
   outline: none;
   cursor: pointer;
-`;
-
-const Error = styled.div`
-  padding: 10px;
-  background-color: #ffbaba;
-  color: #d8000c;
-  margin: 10px 40px;
 `;
 
 export default Search;
