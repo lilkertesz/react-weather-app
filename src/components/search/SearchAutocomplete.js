@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { LocationContext } from "../../context/LocationContext";
 
 const SearchAutocomplete = (props) => {
+  const [clickedCityID, setClickedCityID] = useState("NT_ATkyS4G-W.wiulNPYmMzzD");
+  const autoconvertUrl = `${process.env.REACT_APP_CONVERT_URL}/${clickedCityID}`;
+
   const autocompleteUrl = `${process.env.REACT_APP_AUTOCOMPLETE_URL}/${props.searchedCity}`;
   const [state, setState] = useState({
     suggestions: [],
   });
+  const [location, setLocation] = useContext(LocationContext);
 
   useEffect(() => {
     if (props.searchedCity !== "") {
@@ -29,8 +34,13 @@ const SearchAutocomplete = (props) => {
     dropdownContainer.style.display = isVisible ? "block" : "none";
   };
 
-  const clickHandler = (city) => {
-    props.setSearchedCity(city);
+  const clickHandler = (locationID) => {
+    axios.get(autoconvertUrl)
+      .then((res) => {
+      setClickedCityID(locationID);
+      setLocation(res.data);
+      console.log(location);
+    }).catch((err) => {console.log(err)});
     props.setInputText("");
     setVisibility(false);
   };
@@ -48,9 +58,9 @@ const SearchAutocomplete = (props) => {
       {state.suggestions !== undefined &&
         state.suggestions.map((suggestion) => (
           <DropdownItem
-            key={suggestion.city + suggestion.countryCode + suggestion.state}
+            key={suggestion.locationID + suggestion.countryCode + suggestion.state}
             onClick={() => {
-              clickHandler(suggestion.city);
+              clickHandler(suggestion.locationID);
             }}
             onMouseEnter={mouseEnterHandler}
             onMouseLeave={mouseLeaveHandler}

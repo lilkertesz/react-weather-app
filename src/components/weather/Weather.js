@@ -7,7 +7,7 @@ import {LocationContext} from "../../context/LocationContext";
 
 const Weather = () => {
 
-  const initialLocation = useContext(LocationContext)
+  const [location] = useContext(LocationContext)
 
   const gridStyle = {
     display: "grid",
@@ -52,17 +52,17 @@ const Weather = () => {
     <div className="weather-box">
       <Search />
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        {initialLocation.city}
+        {location.city}
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
-          <CurrentWeather location = {initialLocation} />
+          <CurrentWeather />
         </div>
         <div className="box2" style={box2Style}>
-          <DailyForecast location = {initialLocation} />
+          <DailyForecast />
         </div>
         <div className="box3" style={box3Style}>
-          <HourlyForecast location = {initialLocation} />
+          <HourlyForecast />
         </div>
       </div>
     </div>

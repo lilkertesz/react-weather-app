@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { ChosenDayContext } from "../../context/ChosenDayContext";
 import { ChosenDayProvider } from "../../context/ChosenDayContext";
+import { LocationContext } from "../../context/LocationContext";
 import { 
   convertMpsToKph, 
   convertDegreeToDirection, 
@@ -10,21 +11,20 @@ import {
 } from "../../util";
 
 
-const DailyForecast = ({ location }) => {
+const DailyForecast = () => {
 
   const [dailyForecast, setDailyForecast] = useState([]);
   // const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+  const [location] = useContext(LocationContext);
+  const url = `${process.env.REACT_APP_DAILYFORECAST_URL}/${location.latitude}/${location.longitude}`;
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_DAILYFORECAST_URL}/${location.latitude}/${location.longitude}`)
+    axios.get(url)
     .then(res => setDailyForecast(res.data))
     .catch((err) => {
       console.log(err);
-    });  
-    return () => {
-      console.log("cleaned up");
-    };
-  }, [location])
+    });
+  }, [location, url])
 
   const clickHandler = (e) => {
     // setChosenDay(parseInt(e.currentTarget.dataset.dayofweek));
@@ -76,8 +76,7 @@ const DailyForecast = ({ location }) => {
   };
 
   return (
-    <ChosenDayProvider>
-
+    <React.Fragment>
     {dailyForecast.map((item) => (
     <div
       key={item.timestamp}
@@ -98,7 +97,7 @@ const DailyForecast = ({ location }) => {
       <p>{item.description}</p>
     </div>
   ))}
-  </ChosenDayProvider>
+  </React.Fragment>
   );
 };
 

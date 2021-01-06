@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import styled from "styled-components";
+import { LocationContext } from "../../context/LocationContext";
 import { 
     convertMpsToKph, 
     convertDegreeToDirection, 
     convertTimestampToTime, 
   } from "../../util";
 
-const HourlyForecast = ({location}) => {
+const HourlyForecast = () => {
   const [hourlyForecast, setHourlyForecast] = useState([]);
+  const [location] = useContext(LocationContext);
+  const url = `${process.env.REACT_APP_HOURLYFORECAST_URL}/${location.latitude}/${location.longitude}`;
 
   const humidityImage =
     "https://cdn2.iconfinder.com/data/icons/freecns-cumulus/32/519851-62_Raindrops-512.png";
@@ -22,15 +25,12 @@ const HourlyForecast = ({location}) => {
   };
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_HOURLYFORECAST_URL}/${location.latitude}/${location.longitude}`)
-  .then(res => setHourlyForecast(res.data))
-  .catch((err) => {
-      console.log(err);
-  });
-  return () => {
-      console.log("hourly");
-      };
-  },[location]);
+    axios.get(url)
+    .then(res => setHourlyForecast(res.data))
+    .catch((err) => {
+        console.log(err);
+    });
+  },[location, url]);
 
   return (
     <React.Fragment>
