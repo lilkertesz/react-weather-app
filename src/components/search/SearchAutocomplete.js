@@ -5,7 +5,6 @@ import { LocationContext } from "../../context/LocationContext";
 
 const SearchAutocomplete = (props) => {
   const autocompleteUrl = `${process.env.REACT_APP_AUTOCOMPLETE_URL}/${props.searchedCity}`;
-  const [clickedCityID, setClickedCityID] = useState();
   const [state, setState] = useState({
     suggestions: [],
   });
@@ -35,7 +34,6 @@ const SearchAutocomplete = (props) => {
   const clickHandler = (locationID) => {
     axios.get(`${process.env.REACT_APP_CONVERT_URL}/${locationID}`)
       .then((res) => {
-      // setClickedCityID(locationID);
       setLocation(res.data);
     }).catch((err) => {console.log(err)});
     props.setInputText("");
