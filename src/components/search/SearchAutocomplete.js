@@ -8,7 +8,7 @@ const SearchAutocomplete = (props) => {
   const [state, setState] = useState({
     suggestions: [],
   });
-  const [location, setLocation] = useContext(LocationContext);
+  const setLocation = useContext(LocationContext)[1];
 
   useEffect(() => {
     if (props.searchedCity !== "") {

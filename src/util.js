@@ -27,6 +27,10 @@ export const getDayFromTimestamp = (timestamp) => {
     return days[date.getDay()];
 };
 
+export const getDaysDifference = (dayNumber) => {
+    return Math.abs(new Date().getDay() - dayNumber);
+}
+
 export const compare = (a, b) => {
     if (a.name < b.name) {
       return -1;

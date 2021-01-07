@@ -5,6 +5,7 @@ import { LocationContext } from "../../context/LocationContext";
 import { 
   getDayFromTimestamp,
 } from "../../util";
+import DailyForecastDetails from './DailyForecastDetails';
 
 const DailyForecast = () => {
 
@@ -12,6 +13,7 @@ const DailyForecast = () => {
   const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
   const [location] = useContext(LocationContext);
   const url = `${process.env.REACT_APP_DAILYFORECAST_URL}/${location.latitude}/${location.longitude}`;
+  const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
     axios.get(url)
@@ -21,11 +23,17 @@ const DailyForecast = () => {
     });
   }, [location, url])
 
+  const flip = () => {
+    setFlipped(!flipped);
+  }
+
   const clickHandler = (e) => {
     const elem = e.currentTarget;
     const currentChosenDayElement = document.querySelector(".chosen-day");
-    setChosenDay(elem.dataset.weather);
+    flip();
     console.log(chosenDay);
+    flipped === true ? elem.classList.add("flipped") : elem.classList.remove("flipped");
+
 
     if (currentChosenDayElement) {
       currentChosenDayElement.style.borderTop = "5px solid transparent";
@@ -72,7 +80,8 @@ const DailyForecast = () => {
 
   return (
     <React.Fragment>
-    {dailyForecast.map((item) => (
+    {dailyForecast.map((item) =>  (
+      <div className={"flip-card"}>
     <div
       key={item.timestamp}
       onClick={clickHandler}
@@ -80,8 +89,9 @@ const DailyForecast = () => {
       onMouseLeave={mouseLeaveHandler}
       onLoad={loadHandler}
       style={initialStyle}
-      data-weather={item.temperature}
+      className={"flip-card-inner"}
     >
+      <div className={"flip-card-front"}>
       <h4>{getDayFromTimestamp(item.timestamp)}</h4>
       <img
         src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
@@ -90,9 +100,12 @@ const DailyForecast = () => {
       />
       <p>{item.temperature + "°"}</p>
       <p>{item.description}</p>
+      </div>
+      <DailyForecastDetails weather={item}/>
     </div>
+  </div>
   ))}
-  </React.Fragment>
+</React.Fragment>
   );
 };
 
