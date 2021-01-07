@@ -4,8 +4,7 @@ import styled from "styled-components";
 import { LocationContext } from "../../context/LocationContext";
 
 const SearchAutocomplete = (props) => {
-  const [clickedCityID, setClickedCityID] = useState("NT_ATkyS4G-W.wiulNPYmMzzD");
-  const autoconvertUrl = `${process.env.REACT_APP_CONVERT_URL}/${clickedCityID}`;
+  const [clickedCityID, setClickedCityID] = useState();
 
   const autocompleteUrl = `${process.env.REACT_APP_AUTOCOMPLETE_URL}/${props.searchedCity}`;
   const [state, setState] = useState({
@@ -35,7 +34,7 @@ const SearchAutocomplete = (props) => {
   };
 
   const clickHandler = (locationID) => {
-    axios.get(autoconvertUrl)
+    axios.get(`${process.env.REACT_APP_CONVERT_URL}/${locationID}`)
       .then((res) => {
       setClickedCityID(locationID);
       setLocation(res.data);
