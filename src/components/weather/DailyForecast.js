@@ -1,19 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { ChosenDayContext } from "../../context/ChosenDayContext";
 import { LocationContext } from "../../context/LocationContext";
-import { 
-  getDayFromTimestamp,
-} from "../../util";
+import { getDayFromTimestamp } from "../../util";
 import DailyForecastDetails from './DailyForecastDetails';
 
 const DailyForecast = () => {
 
   const [dailyForecast, setDailyForecast] = useState([]);
-  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
   const [location] = useContext(LocationContext);
   const url = `${process.env.REACT_APP_DAILYFORECAST_URL}/${location.latitude}/${location.longitude}`;
-  const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
     axios.get(url)
@@ -23,31 +18,22 @@ const DailyForecast = () => {
     });
   }, [location, url])
 
-  const flip = () => {
-    setFlipped(!flipped);
-  }
-
   const clickHandler = (e) => {
     const elem = e.currentTarget;
-    const currentChosenDayElement = document.querySelector(".chosen-day");
-    flip();
-    console.log(chosenDay);
-    flipped === true ? elem.classList.add("flipped") : elem.classList.remove("flipped");
 
-
-    if (currentChosenDayElement) {
-      currentChosenDayElement.style.borderTop = "5px solid transparent";
-      currentChosenDayElement.classList.remove("chosen-day");
+    if (elem.classList.contains("flipped")) {
+      elem.style.transform = "rotateY(0deg)";
+      elem.classList.remove("flipped", "chosen-day");
+    } else {
+      elem.style.transform = "rotateY(180deg)";
+      elem.classList.add("flipped", "chosen-day");
     }
-    elem.classList.add("chosen-day");
-    elem.style.borderTop = "5px solid orange";
   };
 
   const mouseEnterHandler = (e) => {
     const elem = e.currentTarget;
 
     elem.classList.add("hovered-day");
-
     elem.style.borderTop = elem.classList.contains("chosen-day")
       ? "5px solid #fc6203"
       : "5px solid #fcd303";
@@ -57,19 +43,9 @@ const DailyForecast = () => {
     const elem = e.currentTarget;
 
     elem.classList.remove("hovered-day");
-
     elem.style.borderTop = elem.classList.contains("chosen-day")
       ? "5px solid orange"
       : "5px solid transparent";
-  };
-
-  const loadHandler = (e) => {
-    const elem = e.currentTarget;
-
-    if (parseInt(elem.dataset.dayofweek) === chosenDay) {
-      elem.classList.add("chosen-day");
-      elem.style.borderTop = "5px solid orange";
-    }
   };
 
   const initialStyle = {
@@ -80,32 +56,32 @@ const DailyForecast = () => {
 
   return (
     <React.Fragment>
-    {dailyForecast.map((item) =>  (
-      <div className={"flip-card"}>
-    <div
-      key={item.timestamp}
-      onClick={clickHandler}
-      onMouseEnter={mouseEnterHandler}
-      onMouseLeave={mouseLeaveHandler}
-      onLoad={loadHandler}
-      style={initialStyle}
-      className={"flip-card-inner"}
-    >
-      <div className={"flip-card-front"}>
-      <h4>{getDayFromTimestamp(item.timestamp)}</h4>
-      <img
-        src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
-        alt="weather"
-        style={{ width: "auto" }}
-      />
-      <p>{item.temperature + "°"}</p>
-      <p>{item.description}</p>
+      {dailyForecast.map((item) =>  (
+      <div 
+        className={"flip-card"} 
+        key={item.timestamp}
+      >
+        <div
+          onClick={clickHandler}
+          onMouseEnter={mouseEnterHandler}
+          onMouseLeave={mouseLeaveHandler}
+          style={initialStyle}
+          className={"flip-card-inner"}
+        >
+          <div className={"flip-card-front"}>
+            <h4>{getDayFromTimestamp(item.timestamp)}</h4>
+            <img
+              src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
+              alt="weather"
+            />
+            <p>{item.temperature + "°"}</p>
+            <p>{item.description}</p>
+          </div>
+          <DailyForecastDetails weather={item}/>
+        </div>
       </div>
-      <DailyForecastDetails weather={item}/>
-    </div>
-  </div>
-  ))}
-</React.Fragment>
+    ))}
+    </React.Fragment>
   );
 };
 

@@ -8,11 +8,8 @@
 .box1 {
   background-image: url(./assets/sunny.jpg);
   color: white;
-}
-
-.hovered-day {
-  animation-name: pop;
-  animation-duration: 100ms;
+  animation-name: comeout;
+  animation-duration: 1000ms;
   animation-iteration-count: 1;
 }
 
@@ -51,17 +48,6 @@
 .flip-card-back {
   transform: rotateY(180deg);
 }
-
-/* @keyframes pop {
-  0% {
-    border-radius: 5%;
-    border-width: 1px;
-  }
-  100% {
-    border-radius: 0%;
-    border-width: 5px;
-  }
-} */
 
 .hourly-forecast div {
   animation-name: comeout;
