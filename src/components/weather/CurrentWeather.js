@@ -59,16 +59,16 @@ function CurrentWeather() {
         <p style={{ fontWeight: "700", fontSize: "1rem" }}>
           {weather.description}
         </p>
-        <p style={infoStyle}> Humidity:{" "}
+        <p style={infoStyle}> humidity:{" "}
           <span style={infoSpanStyle}>{weather.humidity}%</span>
         </p>
-        <p style={infoStyle}> Wind:{" "}
+        <p style={infoStyle}> wind:{" "}
           <span style={infoSpanStyle}>
           {convertDegreeToDirection(weather.windDirection)}{" "}
           {convertMpsToKph(weather.windSpeed)} km/h
           </span>
         </p>
-        <p style={infoStyle}> Pressure:{" "}
+        <p style={infoStyle}> pressure:{" "}
           <span style={infoSpanStyle}>{weather.pressure} hPa</span>
         </p>
       </div>

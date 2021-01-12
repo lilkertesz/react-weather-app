@@ -1,31 +1,38 @@
-﻿import React, { useState, useEffect, useContext } from "react";
+﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FavoriteListContext } from "../../context/FavoriteListContext";
 
-const AddFavorite = ({ city }) => {
-  const [favoriteLocations, setFavoriteLocations] = useContext(
-    FavoriteListContext
-  );
+const AddFavorite = ({ location }) => {
+  const [favoriteLocations, setFavoriteLocations] = useState();
   const [icon, setIcon] = useState();
 
   useEffect(() => {
-    favoriteLocations.includes(city)
+    axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {
+      setFavoriteLocations(res.data)
+    })
+  }, []);
+
+  useEffect(() => {
+    if (favoriteLocations !== undefined){
+    console.log(favoriteLocations)
+    favoriteLocations.includes(`${location.latitude}%${location.longitude}`)
       ? setIcon("check")
       : setIcon("plus");
-  }, [city, favoriteLocations, setFavoriteLocations]);
-
+    }
+  }, [location, favoriteLocations]);
 
   const ToggleLocation = () => {
-    if (favoriteLocations.includes(city)) {
+    if (favoriteLocations.includes(`${location.latitude}%${location.longitude}`)) {
+      console.log(favoriteLocations)
       axios.delete(
-        `${process.env.REACT_APP_FAVORITE_URL}/${city}`
+        `${process.env.REACT_APP_FAVORITE_URL}/${location.latitude}/${location.longitude}`
       );
-      setFavoriteLocations(favoriteLocations.filter(cities => cities !== city));
+      setFavoriteLocations(favoriteLocations.filter(item => item !== `${location.latitude}%${location.longitude}`));
     } else {
+      console.log(favoriteLocations)
       axios.post(
-        `${process.env.REACT_APP_FAVORITE_URL}/${city}`
+        `${process.env.REACT_APP_FAVORITE_URL}/${location.latitude}/${location.longitude}`
       );
-      setFavoriteLocations([...favoriteLocations, city]);
+      setFavoriteLocations([...favoriteLocations, `${location.latitude}%${location.longitude}`]);
     }
   };
 

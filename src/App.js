@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
-import { FavoriteListProvider } from "./context/FavoriteListContext";
 import FavoriteLocations from "./components/favorites/FavoriteLocations";
 import Weather from "./components/weather/Weather";
 import { LocationProvider } from "./context/LocationContext";
@@ -10,7 +9,6 @@ import { LocationProvider } from "./context/LocationContext";
 function App() {
   return (
     <div className="App">
-      <FavoriteListProvider>
         <LocationProvider>
           <Router>
             <Navbar />
@@ -20,7 +18,6 @@ function App() {
             </Switch>
           </Router>
         </LocationProvider>
-      </FavoriteListProvider>
     </div>
   );
 }

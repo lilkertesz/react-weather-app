@@ -53,7 +53,7 @@ const Weather = () => {
       <Search />
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {location.city}
-        <AddFavorite city={location.city} />
+        <AddFavorite location={location} />
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>

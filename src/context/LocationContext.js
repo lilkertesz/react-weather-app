@@ -6,8 +6,8 @@ export const LocationProvider = (props) => {
   const [location, setLocation] = useState({
     city: "Budapest",
     country: "HU",
-    latitude: 47.4984,
-    longitude: 19.0404
+    latitude: 47.49973,
+    longitude: 19.05508
   });
 
   return (

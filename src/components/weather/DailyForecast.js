@@ -23,10 +23,10 @@ const DailyForecast = () => {
 
     if (elem.classList.contains("flipped")) {
       elem.style.transform = "rotateY(0deg)";
-      elem.classList.remove("flipped", "chosen-day");
+      elem.classList.remove("flipped");
     } else {
       elem.style.transform = "rotateY(180deg)";
-      elem.classList.add("flipped", "chosen-day");
+      elem.classList.add("flipped");
     }
   };
 
@@ -34,7 +34,7 @@ const DailyForecast = () => {
     const elem = e.currentTarget;
 
     elem.classList.add("hovered-day");
-    elem.style.borderTop = elem.classList.contains("chosen-day")
+    elem.style.borderTop = elem.classList.contains("flipped")
       ? "5px solid #fc6203"
       : "5px solid #fcd303";
   };
@@ -43,7 +43,7 @@ const DailyForecast = () => {
     const elem = e.currentTarget;
 
     elem.classList.remove("hovered-day");
-    elem.style.borderTop = elem.classList.contains("chosen-day")
+    elem.style.borderTop = elem.classList.contains("flipped")
       ? "5px solid orange"
       : "5px solid transparent";
   };
