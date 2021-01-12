@@ -13,28 +13,37 @@ const FavoriteLocations = () => {
   }, []);
 
   return (
-    <React.Fragment>
-      {state.map((item) => (
-        <Container key={item.city}>
+    <Container>
+    {state.map((item) => (
+      <div key={item.city} className={"flip-card"} >
+        <div className={"flip-card-inner"}>
+          <div className={"flip-card-front"}>
           <City> {item.city} </City>
           <Main>
-            <MediumImg
+            <img
               src={`http://openweathermap.org/img/wn/${item.weatherIcon}@2x.png`}
               alt="weather"
             />
-            <p>{item.temperature + "°"}</p>
+            <h2>{item.temperature + "°"}</h2>
           </Main>
+          </div>
+          <div className={"flip-card-back"}>
+          <City> {item.city} </City>
           <Details weather={item} />
-        </Container>
-      ))}
-    </React.Fragment>
+          </div>
+        </div>
+    </div>
+    ))}
+    </Container>
   );
 };
 
 const Container = styled.div`
-  display: inline-block;
-  width: 200px;
+  display: flex;
   justify-content: space-around;
+  align-items: center;
+  padding: 25px;
+  text-align: center;
 `;
 
 const City = styled.h4`
@@ -44,11 +53,6 @@ const City = styled.h4`
 const Main = styled.div`
   padding: 0 0 20px 0;
   border-bottom: 1px solid lightgray;
-`;
-
-const MediumImg = styled.img`
-  height: 50px;
-  width: 50px;
 `;
 
 export default FavoriteLocations;
