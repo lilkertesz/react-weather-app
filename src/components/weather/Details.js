@@ -1,12 +1,11 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 import { 
   convertMpsToKph, 
   convertDegreeToDirection, 
-  getDayFromTimestamp
 } from "../../util";
 
-const DailyForecastDetails = ({weather}) => {
+const  Details = ({ weather }) => {
 
   const humidityImage =
     "https://cdn2.iconfinder.com/data/icons/freecns-cumulus/32/519851-62_Raindrops-512.png";
@@ -15,13 +14,8 @@ const DailyForecastDetails = ({weather}) => {
   const pressureImage =
     "https://cdn2.iconfinder.com/data/icons/network-sensors/201/pressure-512.png";
 
-
   return (
     <React.Fragment>
-    <div className={"flip-card-back"}
-      key={weather.timestamp}
-    >
-      <h4>{getDayFromTimestamp(weather.timestamp)}</h4>
       <Humidity>
         <SmallImg src={humidityImage} alt="humidity" />
         <p>{weather.humidity + "%"}</p>
@@ -37,10 +31,10 @@ const DailyForecastDetails = ({weather}) => {
         <SmallImg src={pressureImage} alt="pressure" />
         <p>{weather.pressure + " hPa"}</p>
       </Air>
-    </div>
-  </React.Fragment>
+    </React.Fragment>
   );
-}
+};
+
 
 const Humidity = styled.div`
   color: lightblue;
@@ -56,4 +50,5 @@ const SmallImg = styled.img`
   width: 25px;
 `;
 
-export default DailyForecastDetails
+
+export default Details

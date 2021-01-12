@@ -1,19 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { FavoriteListContext } from "../../context/FavoriteListContext";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
-  const [favorites, setFavorites] = useContext(FavoriteListContext);
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_FAVORITES_URL}`).then((res) => {
-      setFavorites(res.data.map((item) => item.city));
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const inputFieldChangeHandler = (event) => {
     setSearchTerm(event.target.value);

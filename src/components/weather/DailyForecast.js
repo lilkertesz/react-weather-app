@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { LocationContext } from "../../context/LocationContext";
 import { getDayFromTimestamp } from "../../util";
-import DailyForecastDetails from './DailyForecastDetails';
+import Details from './Details';
 
 const DailyForecast = () => {
 
@@ -77,7 +77,10 @@ const DailyForecast = () => {
             <p>{item.temperature + "°"}</p>
             <p>{item.description}</p>
           </div>
-          <DailyForecastDetails weather={item}/>
+          <div className={"flip-card-back"}>
+            <h4>{getDayFromTimestamp(item.timestamp)}</h4>
+            <Details weather={item} />
+          </div>
         </div>
       </div>
     ))}
