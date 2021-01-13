@@ -31,13 +31,8 @@ export const getDaysDifference = (dayNumber) => {
     return Math.abs(new Date().getDay() - dayNumber);
 }
 
-export const compare = (a, b) => {
-    if (a.name < b.name) {
-      return -1;
-    }
-    if (a.name > b.name) {
-      return 1;
-    }
-    return 0;
-  };
+export const convertDateTime = (datetime) => {
+    let date = new Date(Date.parse(datetime))
+    return date.toString();
+}
   

@@ -23,7 +23,7 @@ function CurrentWeather() {
   const currentWeatherGridStyle = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    gridTemplateRows: "0.5fr 0.5fr",
+    // gridTemplateRows: "0.5fr 0.5fr",
     gridTemplateAreas: `
       'currentbox1 .'
       'currentbox2 currentbox3'`,
@@ -51,11 +51,10 @@ function CurrentWeather() {
         <img
           src={`http://openweathermap.org/img/wn/${weather.weatherIcon}@2x.png`}
           alt="weather"
-          style={{ width: "auto" }}
           />
-        <h3 style={{ textAlign: "center" }}> {weather.temperature}°</h3>
+        <p style={{ textAlign: "center", fontSize: "2rem"  }}> {weather.temperature}°</p>
       </div>
-      <div style={{ gridArea: "currentbox3", justifySelf: "start", lineHeight: "2rem" }}>
+      <div style={{ gridArea: "currentbox3", justifySelf: "start" }}>
         <p style={{ fontWeight: "700", fontSize: "1rem" }}>
           {weather.description}
         </p>

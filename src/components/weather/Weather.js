@@ -5,6 +5,7 @@ import HourlyForecast from "./HourlyForecast";
 import CurrentWeather from "./CurrentWeather";
 import {LocationContext} from "../../context/LocationContext";
 import AddFavorite from "../favorites/AddFavorites";
+import Observations from "../observation/Observations";
 
 const Weather = () => {
   const [location] = useContext(LocationContext)
@@ -33,7 +34,7 @@ const Weather = () => {
   const box2Style = {
     gridArea: "box2",
     display: "flex",
-    padding: "20px",
+    padding: "10px",
     textAlign: "center",
     justifyContent: "space-around",
     border: "2px solid lightgray",
@@ -66,6 +67,7 @@ const Weather = () => {
           <HourlyForecast />
         </div>
       </div>
+      <Observations location={location} />
     </div>
   )
 }
