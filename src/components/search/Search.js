@@ -16,7 +16,7 @@ const Search = () => {
         placeholder="Search..."
         value={searchTerm}
         onChange={inputFieldChangeHandler}
-      />
+        />
       <SearchAutocomplete
         searchedCity={searchTerm}
         setInputText={setSearchTerm}
@@ -26,14 +26,14 @@ const Search = () => {
 };
 
 const SearchBar = styled.div`
-  width: 400px;
+  width: 350px;
   margin: auto;
   position: relative;
 `;
 
 const Input = styled.input`
-  width: 360px;
-  height: 40px;
+  width: 350px;
+  height: 30px;
   font-size: 15px;
   outline: none;
   border: 2px solid #b5c4d6;

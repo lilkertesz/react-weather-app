@@ -75,7 +75,7 @@ const DailyForecast = () => {
               alt="weather"
             />
             <p>{item.temperature + "°"}</p>
-            <p>{item.description}</p>
+            <p>{item.shortDescription.toLowerCase()}</p>
           </div>
           <div className={"flip-card-back"}>
             <h4>{getDayFromTimestamp(item.timestamp)}</h4>

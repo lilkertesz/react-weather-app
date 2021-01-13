@@ -22,7 +22,7 @@ const Header = styled.header`
   background-repeat: no-repeat;
   text-align: center;
   padding: 15px;
-  height: 100px;
+  height: 90px;
   &:hover {
     background-color: #cde4fa;
   }
@@ -30,7 +30,7 @@ const Header = styled.header`
 
 const NavParagraph = styled.p`
   color: orange;
-  font-size: 50px;
+  font-size: 40px;
   text-decoration: none;
 `;
 

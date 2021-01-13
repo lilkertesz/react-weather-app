@@ -26,7 +26,6 @@
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
-  /* padding: 10px 7px 0 7px; */
   border-top: 5px solid transparent;
   cursor: "pointer";
 }

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form } from 'semantic-ui-react'
 
-const AddObservation = ({location, setPosted}) => {
+const AddObservation = ({location, setObservations}) => {
   const [description, setDescription] = useState("");
+  const observationUrl = `${process.env.REACT_APP_OBSERVATION_URL}/${location.latitude}/${location.longitude}`;
 
   const descriptionInputChangeHandler = (event) => {
     setDescription(event.target.value);
@@ -29,13 +30,16 @@ const AddObservation = ({location, setPosted}) => {
       headers: {'Content-Type': 'multipart/form-data' }
       })
       .then(resp => console.log(resp))
-      .then(setPosted(true))
+      .then(axios.get(observationUrl).then((res) => {
+        setObservations(res.data);
+      }))
       .catch(err => console.log(err));
     };
 
   return (
     <Form reply onSubmit={submitHandler}>
-      <Form.TextArea name="description" 
+      <Form.TextArea 
+        name="description" 
         value={description} 
         onChange={descriptionInputChangeHandler}
       />

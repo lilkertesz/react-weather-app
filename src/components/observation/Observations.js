@@ -4,32 +4,27 @@ import AddObservation from "./AddObservation";
 import { Comment, Header } from 'semantic-ui-react'
 import { convertDateTime } from "../../util";
 
-
 const Observations = ({location}) => {
   const observationUrl = `${process.env.REACT_APP_OBSERVATION_URL}/${location.latitude}/${location.longitude}`;
-  const [state, setState] = useState({
-    observations: [],
-  });
-  const [posted, setPosted] = useState(true);
+  const [observations, setObservations] = useState();
+  const avatars = ["matt", "elliot", "jenny", "joe", "christian", "stevie"]
 
   useEffect(() => {
-    if (posted === true){
-      axios.get(observationUrl).then((res) => {
-        setState({ observations: res.data });
-      });
-      setPosted(false);
-    }
-  }, [observationUrl, posted]);
+    axios.get(observationUrl).then((res) => {
+      setObservations(res.data);
+    });
+  }, [observationUrl]);
 
   return (
-  <div style={{width: "600px", margin: "auto"}}>
+  <div style={{width: "600px", margin: "auto", paddingBottom: "40px"}}>
     <Comment.Group>
       <Header as='h3' dividing>
         User observations for {location.city}:
       </Header>
-        {state.observations.map((observation) => (
+      {observations !== undefined &&
+        observations.map((observation) => (
         <Comment key={observation.id}>
-          <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+          <Comment.Avatar src={`https://react.semantic-ui.com/images/avatar/small/${avatars[Math.floor(Math.random()*avatars.length)]}.jpg`} />
           <Comment.Content>
             <Comment.Author as='a'>{observation.userName}</Comment.Author>
             <Comment.Metadata>
@@ -39,7 +34,7 @@ const Observations = ({location}) => {
           </Comment.Content>
         </Comment>
         ))}
-      <AddObservation location={location} setPosted={setPosted}/>
+      <AddObservation location={location} setObservations={setObservations}/>
     </Comment.Group>
   </div>  
   );

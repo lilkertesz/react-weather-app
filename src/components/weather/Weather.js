@@ -50,7 +50,7 @@ const Weather = () => {
   };
 
   return (
-    <div className="weather-box">
+    <div className="weather-box" style={{ margin: "auto", width: "fit-content" }}>
       <Search />
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {location.city}
