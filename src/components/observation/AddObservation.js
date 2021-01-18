@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form } from 'semantic-ui-react'
 
-const AddObservation = ({location, setObservations}) => {
+const AddObservation = ({location, setIsLoading}) => {
   const [description, setDescription] = useState("");
-  const observationUrl = `${process.env.REACT_APP_OBSERVATION_URL}/${location.latitude}/${location.longitude}`;
 
   const descriptionInputChangeHandler = (event) => {
     setDescription(event.target.value);
   };
 
   const submitHandler = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     setDescription("");
     const url = `${process.env.REACT_APP_OBSERVATION_URL}`;
@@ -29,12 +29,10 @@ const AddObservation = ({location, setObservations}) => {
       data: bodyFormData,
       headers: {'Content-Type': 'multipart/form-data' }
       })
-      .then(resp => console.log(resp))
-      .then(axios.get(observationUrl).then((res) => {
-        setObservations(res.data);
-      }))
+      .then(resp => resp.status === 200 ? setIsLoading(false) : console.log("not yet"))
       .catch(err => console.log(err));
     };
+
 
   return (
     <Form reply onSubmit={submitHandler}>
