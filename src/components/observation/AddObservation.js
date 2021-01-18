@@ -4,6 +4,7 @@ import { Button, Form } from 'semantic-ui-react'
 
 const AddObservation = ({location, setIsLoading}) => {
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const descriptionInputChangeHandler = (event) => {
     setDescription(event.target.value);
@@ -23,19 +24,27 @@ const AddObservation = ({location, setIsLoading}) => {
     bodyFormData.append('description', data);
     bodyFormData.append('username', "guest");
 
-    axios({
-      method: 'post',
-      url: url,
-      data: bodyFormData,
-      headers: {'Content-Type': 'multipart/form-data' }
-      })
-      .then(resp => resp.status === 200 ? setIsLoading(false) : console.log("not yet"))
-      .catch(err => console.log(err));
+    if (data !== "") {
+      setError("");
+      axios({
+        method: 'post',
+        url: url,
+        data: bodyFormData,
+        headers: {'Content-Type': 'multipart/form-data' }
+        })
+        .then(resp => resp.status === 200 ? setIsLoading(false) : console.log("not yet"))
+        .catch(err => setError("Ooops... something went wrong. Please try again later."));
+      } else {
+        setIsLoading(false);
+        setError("Please enter something.")
     };
-
+  }
 
   return (
     <Form reply onSubmit={submitHandler}>
+      {error !== "" && 
+      <h3 style={{color: "red"}}>{error}</h3>
+      }
       <Form.TextArea 
         name="description" 
         value={description} 
