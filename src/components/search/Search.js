@@ -27,8 +27,7 @@ const Search = () => {
 
 const SearchBar = styled.div`
   width: 350px;
-  margin: auto;
-  position: relative;
+  margin: 5px;
 `;
 
 const Input = styled.input`
@@ -36,9 +35,9 @@ const Input = styled.input`
   height: 30px;
   font-size: 15px;
   outline: none;
-  border: 2px solid #b5c4d6;
+  border: 2px solid orange;
+  border-radius: 3px;
   padding: 10px;
-  margin-top: 0;
 `;
 
 export default Search;

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import Search from "../search/Search";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import CurrentWeather from "./CurrentWeather";
@@ -50,7 +49,6 @@ const Weather = () => {
 
   return (
     <div className="weather-box" style={{ margin: "auto", width: "fit-content" }}>
-      <Search />
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {location.city}
         <AddFavorite location={location} />
