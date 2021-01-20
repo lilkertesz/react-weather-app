@@ -50,7 +50,7 @@ const AddObservation = ({location, setIsLoading}) => {
         value={description} 
         onChange={descriptionInputChangeHandler}
       />
-      <Button content='Add Observation' labelPosition='left' icon='edit' primary type="submit"/>
+      <Button content='Add Observation' labelPosition='left' icon='edit' primary type="submit" style={{backgroundColor:"#003464"}}/>
     </Form>
   );
 };

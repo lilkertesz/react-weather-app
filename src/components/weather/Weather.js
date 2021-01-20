@@ -26,7 +26,6 @@ const Weather = () => {
     gridArea: "box1",
     lineHeight: "1.5rem",
     fontSize: "1.15rem",
-    padding: "15px 15px 25px 15px",
     border: "2px solid lightgray",
     borderRight: "0",
   };

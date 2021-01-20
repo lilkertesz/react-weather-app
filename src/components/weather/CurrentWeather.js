@@ -1,35 +1,35 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { LocationContext } from "../../context/LocationContext";
+import styled from "styled-components";
 import { 
   convertMpsToKph, 
   convertDegreeToDirection, 
   convertTimestampToTime, 
+  weatherCodeConverter
 } from "../../util";
+
+import Clear from '../../assets/clear.JPG';
+import Cloud from '../../assets/cloud.JPG';
+import Drizzle from '../../assets/drizzle.JPG';
+import Mist from '../../assets/mist.JPG';
+import Rain from '../../assets/rain.JPG';
+import Snow from '../../assets/snow.JPG';
+import Thunder from '../../assets/thunder.JPG';
 
 function CurrentWeather() {
   const [weather, setWeather] = useState();
   const [location] = useContext(LocationContext);
   const url = `${process.env.REACT_APP_CURRENTWEATHER_URL}/${location.latitude}/${location.longitude}`;
+  const backgrounds = [Clear, Thunder, Drizzle, Rain, Snow, Mist, Cloud]
 
   useEffect(() => {
     axios.get(url)
-    .then(res => setWeather(res.data))
+    .then(res => {setWeather(res.data)})
     .catch((err) => {
       console.log(err);
     });  
   }, [location, url])
-
-  const currentWeatherGridStyle = {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    // gridTemplateRows: "0.5fr 0.5fr",
-    gridTemplateAreas: `
-      'currentbox1 .'
-      'currentbox2 currentbox3'`,
-    justifyItems: "center",
-    alignItems: "center",
-  };
 
   const infoStyle = {
     fontSize: "0.8rem",
@@ -43,7 +43,7 @@ function CurrentWeather() {
   return (
     <React.Fragment>
     {weather !== undefined &&
-      <div className="current-weather" style={currentWeatherGridStyle}>
+      <CurrentWeatherGrid className="current-weather" style={{ backgroundImage: `url(${backgrounds[weatherCodeConverter(weather.code)]})`}}>
       <h2 style={{ gridArea: "currentbox1" }}>
         {convertTimestampToTime(weather.timestamp)}
       </h2>
@@ -71,10 +71,22 @@ function CurrentWeather() {
           <span style={infoSpanStyle}>{weather.pressure} hPa</span>
         </p>
       </div>
-    </div>
+    </CurrentWeatherGrid>
   }
   </React.Fragment>
   ) 
 }
+
+const CurrentWeatherGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'currentbox1 .'
+    'currentbox2 currentbox3';
+  justify-items: center;
+  align-items: center;
+  padding: 15px 15px 25px 15px;
+  background-size: cover;
+`
 
 export default CurrentWeather;

@@ -12,6 +12,7 @@ function Navbar() {
           <NavLink to="/favorites">MY CITIES</NavLink>{" "}
         </NavParagraph>
       </nav>
+      <button>Sign in / Register</button>
     </Header>
   );
 }

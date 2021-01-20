@@ -5,14 +5,6 @@
   font-family: "Gill Sans", sans-serif;
 }
 
-.box1 {
-  background-image: url(./assets/sunny.jpg);
-  color: white;
-  animation-name: comeout;
-  animation-duration: 1000ms;
-  animation-iteration-count: 1;
-}
-
 .flip-card {
   background-color: transparent;
   width: 100px;
