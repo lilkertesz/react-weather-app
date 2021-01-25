@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import CurrentWeather from "./CurrentWeather";
 import {LocationContext} from "../../context/LocationContext";
 import AddFavorite from "../favorites/AddFavorites";
 import Observations from "../observation/Observations";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Weather = () => {
   const [location] = useContext(LocationContext)
@@ -47,11 +49,26 @@ const Weather = () => {
     justifyContent: "space-evenly",
   };
 
+  const ButtonStyle = {
+    float: "left",
+    fontSize: "22px",
+    marginLeft: "15px",
+    marginTop: "4px",
+    display: "flex",
+    cursor: "pointer",
+    color: "black"
+  };
+
   return (
     <div className="weather-box" style={{ margin: "auto", width: "fit-content" }}>
       <h2 style={{ margin: "20px 0 0 60px", display: "flex" }}>
         {location.city}
         <AddFavorite location={location} />
+        <Tooltip title="My favorites" placement="right">
+        <Link to="/favorites">
+      <i className={`fa fa-heart`} style={ButtonStyle} />
+        </Link>
+    </Tooltip>
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
@@ -68,5 +85,6 @@ const Weather = () => {
     </div>
   )
 }
+
 
 export default Weather;
