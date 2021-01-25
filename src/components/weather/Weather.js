@@ -49,7 +49,7 @@ const Weather = () => {
 
   return (
     <div className="weather-box" style={{ margin: "auto", width: "fit-content" }}>
-      <h2 style={{ marginLeft: "60px", display: "flex" }}>
+      <h2 style={{ margin: "20px 0 0 60px", display: "flex" }}>
         {location.city}
         <AddFavorite location={location} />
       </h2>

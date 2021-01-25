@@ -81,6 +81,7 @@ const DropdownContainer = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   width: inherit;
   background: white;
+  color: black;
 `;
 
 const DropdownItem = styled.div`

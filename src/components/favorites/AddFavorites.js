@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const AddFavorite = ({ location }) => {
   const [favoriteLocations, setFavoriteLocations] = useState();
@@ -13,7 +14,6 @@ const AddFavorite = ({ location }) => {
 
   useEffect(() => {
     if (favoriteLocations !== undefined){
-    console.log(favoriteLocations)
     favoriteLocations.includes(`${location.latitude}%${location.longitude}`)
       ? setIcon("check")
       : setIcon("plus");
@@ -46,7 +46,9 @@ const AddFavorite = ({ location }) => {
   };
 
   return (
-    <i onClick={ToggleLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
+    <Tooltip title={icon === "check" ? "Remove from favorites" : "Add to favorites"} placement="right">
+      <i onClick={ToggleLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
+    </Tooltip>
   );
 };
 
