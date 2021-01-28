@@ -11,8 +11,6 @@ function Navbar() {
     <Header>
       <FontAwesomeIcon icon={faSun} /> {" "}
       <NavLink to="/">WEATHER</NavLink> 
-      {/* |{" "} */}
-      {/* <NavLink to="/favorites">WATCHLIST</NavLink>{" "} */}
       <NavRight>
         <Search/>
         <div style={{margin: "10px", fontSize:"15px"}}>

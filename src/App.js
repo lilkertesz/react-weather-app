@@ -5,6 +5,7 @@ import Navbar from "./components/layout/Navbar";
 import FavoriteLocations from "./components/favorites/FavoriteLocations";
 import Weather from "./components/weather/Weather";
 import { LocationProvider } from "./context/LocationContext";
+import RegistrationTab from "./components/registration/Tab";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Weather} />
               <Route path="/favorites" component={FavoriteLocations} />
+              <Route path="/registration" component={RegistrationTab} />
             </Switch>
           </Router>
         </LocationProvider>
