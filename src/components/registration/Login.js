@@ -5,7 +5,7 @@ const Login = () => (
   <Form>
     <Form.Field>
       <label>Username</label>
-      <input placeholder='Email' />
+      <input placeholder='Username' />
     </Form.Field>
     <Form.Field>
       <label>Password</label>

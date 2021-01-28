@@ -16,7 +16,7 @@ function Navbar() {
         <div style={{margin: "10px", fontSize:"15px"}}>
           <FontAwesomeIcon icon={faUser} /> {" "}
           <span>
-          <NavLink to="/registration">Sign up / Login</NavLink>
+          <NavLink to="/registration">Login / Sign up</NavLink>
           </span>
         </div>
       </NavRight>
